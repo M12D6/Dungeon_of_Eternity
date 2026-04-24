@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dungeon of Eternity - Launcher</title>
+    <style>
+        body {
+            font-family: 'Cinzel', serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0d0505 100%);
+            color: #e2e8f0;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .launcher-container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            border-radius: 15px;
+            border: 2px solid #a855f7;
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+            max-width: 600px;
+        }
+        h1 {
+            color: #a855f7;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+        }
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            background: linear-gradient(135deg, #a855f7, #7c3aed);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(168, 85, 247, 0.4);
+            border-color: #a855f7;
+        }
+        .instructions {
+            margin: 20px 0;
+            font-size: 14px;
+            color: #9ca3af;
+            line-height: 1.6;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .success { background: rgba(34, 197, 94, 0.2); color: #22c55e; border: 1px solid #22c55e; }
+        .warning { background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid #f59e0b; }
+        .error { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; }
+    </style>
+</head>
+<body>
+    <div class="launcher-container">
+        <h1>🏰 Dungeon of Eternity</h1>
+        <p style="font-size: 18px; margin-bottom: 30px;">Tactical Chaos Edition</p>
+        
+        <div class="instructions">
+            <strong>📋 How to Start the Game:</strong><br><br>
+            
+            <strong>Option 1: Node.js (Recommended)</strong><br>
+            1. Double-click <code>start-server.ps1</code> (Windows) or run <code>npm start</code><br>
+            2. Server will start automatically and open the game<br><br>
+            
+            <strong>Option 2: Python</strong><br>
+            1. Double-click <code>start-server.bat</code><br>
+            2. Open <a href="http://localhost:8000" target="_blank">http://localhost:8000</a><br><br>
+            
+            <strong>Option 3: Manual</strong><br>
+            1. Run <code>python -m http.server 8000</code> in this folder<br>
+            2. Open <a href="http://localhost:8000" target="_blank">http://localhost:8000</a>
+        </div>
+        
+        <div class="status success">
+            ✅ Ready to launch! Choose an option above.
+        </div>
+        
+        <button class="button" onclick="checkServer()">
+            🔍 Check if Server is Running
+        </button>
+        
+        <a href="http://localhost:8000" target="_blank" class="button">
+            🎮 Open Game (if server is running)
+        </a>
+        
+        <div id="status" style="margin-top: 20px;"></div>
+    </div>
+
+    <script>
+        function checkServer() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = '<div class="status warning">🔄 Checking server status...</div>';
+            
+            fetch('http://localhost:8000')
+                .then(response => {
+                    if (response.ok) {
+                        statusDiv.innerHTML = '<div class="status success">✅ Server is running! You can open the game.</div>';
+                        setTimeout(() => {
+                            window.open('http://localhost:8000', '_blank');
+                        }, 1000);
+                    } else {
+                        throw new Error('Server not responding');
+                    }
+                })
+                .catch(error => {
+                    statusDiv.innerHTML = '<div class="status error">❌ Server is not running. Please start the server first.</div>';
+                });
+        }
+        
+        // Auto-check server on load
+        setTimeout(checkServer, 1000);
+    </script>
+</body>
+</html>

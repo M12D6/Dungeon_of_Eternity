@@ -1,0 +1,16 @@
+{
+  "name": "dungeon-of-eternity",
+  "version": "1.0.0",
+  "description": "A deep roguelike with factions, pets, crafting, housing, achievements, skill trees, and subclasses",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["game", "roguelike", "react", "javascript"],
+  "author": "Dungeon of Eternity",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

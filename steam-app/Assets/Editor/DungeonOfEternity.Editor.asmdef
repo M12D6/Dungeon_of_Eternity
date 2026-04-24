@@ -1,0 +1,19 @@
+{
+    "name": "DungeonOfEternity.Editor",
+    "rootNamespace": "DungeonOfEternity.EditorTools",
+    "references": [
+        "DungeonOfEternity",
+        "Unity.TextMeshPro"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

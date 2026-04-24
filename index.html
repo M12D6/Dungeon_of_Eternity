@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dungeon of Eternity   Tactical Chaos Edition</title>
+  <meta name="description"
+    content="A deep roguelike with factions, pets, crafting, housing, achievements, skill trees, and subclasses. Forge your legend in the depths." />
+
+  <!-- SEO & Social -->
+  <meta property="og:title" content="Dungeon of Eternity   Tactical Chaos Edition" />
+  <meta property="og:description" content="The ultimate tactical roguelike experience." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #a855f7;
+      --primary-glow: rgba(168, 85, 247, 0.4);
+      --bg: #030303;
+      --card-bg: rgba(20, 20, 35, 0.7);
+      --border: rgba(255, 255, 255, 0.1);
+    }
+
+    html,
+    body,
+    #root {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      color: #f8fafc;
+      overflow: hidden;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    body {
+      background-image:
+        radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 40%);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      outline: none;
+    }
+
+    /* Premium Loading Experience */
+    #loading {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at center, #0a0a14 0%, #030303 100%);
+      z-index: 9999;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .loader-orb {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin-bottom: 40px;
+    }
+
+    .orb-inner {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), #3b82f6);
+      filter: blur(20px);
+      opacity: 0.5;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .orb-ring {
+      position: absolute;
+      inset: -5px;
+      border: 2px solid var(--primary);
+      border-radius: 50%;
+      border-top-color: transparent;
+      border-bottom-color: transparent;
+      animation: spin 1.5s linear infinite;
+    }
+
+    .loading-text {
+      font-family: 'Cinzel', serif;
+      font-size: 28px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      text-shadow: 0 0 20px var(--primary-glow);
+      animation: fadeText 2s ease-in-out infinite;
+      text-align: center;
+    }
+
+    .loading-sub {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #64748b;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.5;
+      }
+
+      50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+      }
+    }
+
+    @keyframes fadeText {
+
+      0%,
+      100% {
+        opacity: 0.6;
+        transform: translateY(0);
+      }
+
+      50% {
+        opacity: 1;
+        transform: translateY(-2px);
+      }
+    }
+
+    /* Monolith Layout Tweaks */
+    #root {
+      position: relative;
+    }
+
+    /* Scrollbar Customization for Premium Look */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(168, 85, 247, 0.3);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(168, 85, 247, 0.5);
+    }
+  </style>
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script>
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const loader = document.getElementById('loading');
+        if (loader && loader.style.opacity !== '0') {
+          console.warn("Loader still visible after 15s. Attempting emergency hide...");
+
+          const sub = document.querySelector('.loading-sub');
+          if (sub) sub.innerText = "Error: Initialization timeout. Check console.";
+        }
+      }, 15000);
+    });
+    
+    window.onerror = function(msg, url, line, col, error) {
+      console.error("Global Error:", msg, "at", line, ":", col);
+      const sub = document.querySelector('.loading-sub');
+      if (sub) sub.innerText = "Runtime Error: " + msg;
+      return false;
+    };
+  </script>
+</head>
+
+<body>
+  <div id="root">
+    <div id="loading">
+      <div class="loader-orb">
+        <div class="orb-inner"></div>
+        <div class="orb-ring"></div>
+      </div>
+      <div class="loading-text">DUNGEON OF ETERNITY</div>
+    </div>
+
+    <script type="text/babel" data-presets="react" src="main.jsx"></script>
+  </body>
+</html>
